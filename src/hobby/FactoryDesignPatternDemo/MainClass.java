@@ -18,6 +18,7 @@ public class MainClass {
 		}while(choice!=1 && choice!=2);
 		Shape shape = ShapeFactory.createShape(choice);
 		shape.draw();
+		in.close();
 	}
 
 }

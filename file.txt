@@ -1,0 +1,3 @@
+This is a sample program for finding the duplicate words in a paragraph
+This program uses Map to put word as key and its occurrences as value
+FilwWriter and FileReader is used for writing and reading contents to and from the file

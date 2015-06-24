@@ -16,6 +16,7 @@ public class SingletonDemo {
 class SingletonClass { 
 	private static SingletonClass singleton = null;
 	
+	private SingletonClass(){}
 	public static SingletonClass getInstance(){
 		if(singleton == null)
 			singleton = new SingletonClass();
