@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Suppose 100 people are standing in circle. First kills second person and hands over the sword to third which kills fourth
  * and hands over the sword to fifth and the process continues until only one person is left behind
  * 
- * The solution for this problem comes from the theorem - If n=2^m+l and 0<=l<2^m, then f(n) = 2l+1.
+ * The solution for this problem comes from the theorem - If n=2^m+a and 0<=a<2^m, then f(n) = 2a+1.
  * For 100 people the solution is 73
  */
 public class JosephusProblem {
