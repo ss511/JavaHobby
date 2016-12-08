@@ -5,211 +5,135 @@ import java.util.Scanner;
 public class LinkedListImpl {
 
 	public static void main(String[] args) {
-		ListImpl listImpl = null;
-		LinkedListImpl linkedListImpl = new LinkedListImpl();
+		LinkedLists linkedLists = new LinkedLists();
+		ListNode head = null;
 		int choice;
+		int data = 0;
 		do{
-			System.out.println("Enter choice::\n1-Insert Data\n2-Insert At Start\n3-Insert At Middle\n4-Search Data\n5-Remove Data\n6-Print Data\n7-Get List Size\n9-Exit");
+			System.out.println("Enter Choice:"
+					+ "\n1-Insert At Start"
+					+ "\n2-Insert At End"
+					+ "\n3-Insert At Pos"
+					+ "\n4-Search"
+					+ "\n5-Print"
+					+ "\n6-Delete"
+					+ "\n7-Get List Size:"
+					+ "\n8-Exit");
 			Scanner in = new Scanner(System.in);
-			Scanner in1 = new Scanner(System.in);
 			choice = in.nextInt();
 			switch(choice){
-			case 1: System.out.println("Enter data at end::");
-					String data = in1.nextLine();
-					listImpl = linkedListImpl.insertData(data, listImpl);
+				case 1: 
+					System.out.println("Enter Data: ");
+					data = in.nextInt();
+					head = linkedLists.insertAtStart(head, data);
 					break;
-			case 2: System.out.println("Enter data at start::");
-					data = in1.nextLine();
-					listImpl = linkedListImpl.insertDataAtStart(data, listImpl);
+				case 2:
+					System.out.println("Enter Data: ");
+					data = in.nextInt();
+					head = linkedLists.insertAtEnd(head, data);
 					break;
-			
-			case 3: System.out.println("Enter position::");
+				case 3:
+					System.out.println("Enter Data: ");
+					data = in.nextInt();
+					System.out.println("Enter position: ");
 					int pos = in.nextInt();
-					System.out.println("Enter data at a position::");
-					data = in1.nextLine();
-					listImpl = linkedListImpl.insertDataAtPos(data, pos, listImpl);
+					head = linkedLists.insertAtPos(head, data, pos);
 					break;
-			
-			case 4: System.out.println("Enter data to search::");
-					data = in1.nextLine();
-					linkedListImpl.searchData(data, listImpl);
+				case 5:
+					linkedLists.printList(head);
+					break;
+				case 8:
+					break;
+				default:
+					System.out.println("Please Enter Correct Choice:::");
 					break;
 					
-			case 5: System.out.println("Enter data to remove::");
-					data = in1.nextLine();
-					listImpl = linkedListImpl.removeData(data, listImpl);	
-					break;
-			
-			case 6: linkedListImpl.printData(listImpl);
-					break;
-			case 7: System.out.println("Size of the list is::"+linkedListImpl.getSize(listImpl));
-			case 9: break;
-			default: System.out.println("Please Enter correct choice");
-					 break;
 			}
-		}while(choice != 9);
-	}
-	
-	ListImpl insertData(String data, ListImpl head){
-		if(head == null){
-			head = new ListImpl();
-			head.setData(data);
-			head.setNext(null);
-			head.setPrev(null);
-		}
-		else{
-			ListImpl node = head;
-			while(node.getNext()!=null)
-				node=node.getNext();
-			ListImpl temp = new ListImpl();
-			temp.setData(data);
-			temp.setNext(null);
-			temp.setPrev(node);
-			node.setNext(temp);
-		}
-		return head;
-	}
-	
-	ListImpl insertDataAtStart(String data, ListImpl head){
-		if(head == null){
-			head = new ListImpl();
-			head.setData(data);
-			head.setNext(null);
-			head.setPrev(null);
-		}
-		else{
-			ListImpl node = head;
-			ListImpl temp = new ListImpl();
-			temp.setData(data);
-			temp.setPrev(null);
-			temp.setNext(node);
-			node.setPrev(temp);
-			head = temp;
-		}
-		return head;
-	}
-	
-	ListImpl insertDataAtPos(String data, int pos, ListImpl head){
-		int i = 1;
-		if(pos==1){
-			head = insertDataAtStart(data, head);
-			return head;
-		}
-		else{
-			if(head == null){
-				head = new ListImpl();
-				head.setData(data);
-				head.setNext(null);
-				head.setPrev(null);
-			}
-			else{
-				ListImpl node = head;
-				while(node.getNext()!=null){
-					if(i==pos)
-						break;
-					node = node.getNext();
-					i++;
-				}
-				if(pos>i){
-					head = insertData(data, head);
-					return head;
-				}
-				ListImpl temp = new ListImpl();
-				ListImpl prev = node.getPrev();
-				temp.setData(data);
-				prev.setNext(temp);
-				temp.setPrev(prev);
-				temp.setNext(node);
-			}
-			return head;
-		}
-	}
-	
-	void searchData(String data, ListImpl head){
-		ListImpl node = head;
-		int pos = 1;
-		while(node.getNext() != null){
-			if(node.getData().equalsIgnoreCase(data)){
-				System.out.println(data+" found at pos--"+pos);
-			}
-			node=node.getNext();
-			pos++;
-		}
-	}
-	
-	ListImpl removeData(String data, ListImpl head){
-		ListImpl node = head;
-		boolean flag = false;
-		if(getSize(node) == 1){
-			head = null;
-			return head;
-		}
-		while(node!=null){
-			if(node.getData().equalsIgnoreCase(data)){
-				ListImpl temp = node;
-				ListImpl prev = node.getPrev();
-				if(prev!=null)
-					prev.setNext(temp.getNext());
-				else{
-					head = temp.getNext();
-					head.setPrev(null);
-				}
-				if(node.getNext()!=null && prev!=null)
-					node.getNext().setPrev(prev);
-				temp = null;
-				System.out.println("Data deleted... The new List is:::");
-				printData(head);
-				flag = true;
-				break;
-			}
-			node=node.getNext();
-		}
-		if(flag == false){
-			System.out.println("Data not present in the list!!!");
-		}
-		return head;
-	}
-	
-	void printData(ListImpl head){
-		while(head!=null){
-			System.out.println(head.getData());
-			head = head.getNext();
-		}
-	}
-	
-	int getSize(ListImpl head){
-		int i = 0;
-		ListImpl node = head;
-		while(node!=null){
-			i++;
-			node=node.getNext();
-		}
-		return i;
+		}while(choice != 8);
+
 	}
 
 }
 
-class ListImpl{
-	private String data;
-	private ListImpl next;
-	private ListImpl prev;
-	public String getData() {
+class LinkedLists{
+	public ListNode insertAtStart(ListNode head, int data){
+		ListNode newNode = new ListNode();
+		newNode.setData(data);
+		if(head == null){
+			newNode.setNext(null);
+			head = newNode;
+		}
+		else{
+			ListNode temp = head;
+			newNode.setNext(temp);
+			head = newNode;
+		}
+		
+		return head;
+	}
+	
+	public ListNode insertAtEnd(ListNode head, int data){
+		ListNode newNode = new ListNode();
+		newNode.setData(data);
+		newNode.setNext(null);
+		if(head == null){
+			head = newNode;
+		}
+		else{
+			ListNode temp = head;
+			while(temp.getNext() != null){
+				temp = temp.getNext();
+			}
+			temp.setNext(newNode);
+		}
+		
+		return head;
+	}
+	
+	public ListNode insertAtPos(ListNode head, int data, int pos){
+		ListNode newNode = new ListNode();
+		newNode.setData(data);
+		if(head == null){
+			newNode.setNext(null);
+			head = newNode;
+		}
+		else{
+			ListNode temp = head;
+			int i = 0;
+			while(temp.getNext()!=null){
+				if(i == pos)
+					break;
+				temp = temp.getNext();
+				i++;
+			}
+			newNode.setNext(temp.getNext());
+			temp.setNext(newNode);
+		}
+		return head;
+	}
+	public void printList(ListNode head){
+		ListNode temp = head;
+		while(temp != null){
+			System.out.print(temp.getData()+" ");
+			temp = temp.getNext();
+		}
+	}
+}
+
+class ListNode{
+	int data;
+	ListNode next;
+	public int getData() {
 		return data;
 	}
-	public void setData(String data) {
+	public void setData(int data) {
 		this.data = data;
 	}
-	public ListImpl getNext() {
+	public ListNode getNext() {
 		return next;
 	}
-	public void setNext(ListImpl next) {
+	public void setNext(ListNode next) {
 		this.next = next;
-	}
-	public ListImpl getPrev() {
-		return prev;
-	}
-	public void setPrev(ListImpl prev) {
-		this.prev = prev;
 	}
 	
 }
