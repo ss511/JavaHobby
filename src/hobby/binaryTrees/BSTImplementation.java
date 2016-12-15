@@ -55,7 +55,8 @@ public class BSTImplementation {
 				System.out.println("Is Binary Tree BST:::"+isBST);
 				break;
 			case 6:
-				
+				BST node = bstUtils.lowestCommonAncestor(root, 70, 90);
+				System.out.println("Lowest Common Ancestor is:: "+node.getData());
 				break;
 			case 7:
 				
@@ -152,6 +153,7 @@ class BSTUtils{
 		System.out.println("Minimum Element in the tree is::"+root.getData());
 		return root.getData();
 	}
+	
 	public boolean isTreeBST(BST root, int min, int max){
 		if(root == null){
 			return true;
@@ -160,6 +162,20 @@ class BSTUtils{
 			return false;
 		return (isTreeBST(root.getLeft(), min, root.getData()) &&  isTreeBST(root.getRight(), root.getData(), max));
 		
+	}
+	
+	public BST lowestCommonAncestor(BST root, int a, int b){
+		if(root == null){
+			return null;
+		}
+		BST node = root;
+		if(node.getData() < a && node.getData() < b){
+			return lowestCommonAncestor(node.getRight(), a, b);
+		}
+		if(node.getData() > a && node.getData() > b){
+			return lowestCommonAncestor(node.getLeft(), a, b);
+		}
+		return node;
 	}
 }
 
