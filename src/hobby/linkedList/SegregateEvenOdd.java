@@ -1,5 +1,8 @@
 package hobby.linkedList;
 
+import java.util.Collections;
+import java.util.List;
+
 public class SegregateEvenOdd {
 
 	public static void main(String[] args) {
