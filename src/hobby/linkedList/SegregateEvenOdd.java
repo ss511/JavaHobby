@@ -1,8 +1,9 @@
 package hobby.linkedList;
 
-import java.util.Collections;
-import java.util.List;
-
+/*
+ * Segregated Even and Odd Numbers in a list
+ * 
+ */
 public class SegregateEvenOdd {
 
 	public static void main(String[] args) {
