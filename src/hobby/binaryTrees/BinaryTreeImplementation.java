@@ -112,6 +112,8 @@ class BinaryTreeUtils{
 			node.setLeft(null);
 			node.setRight(null);
 			
+			root.getRight().setRight(node);
+			
 			node = new BinaryTree();
 			node.setData(200);
 			node.setLeft(null);
