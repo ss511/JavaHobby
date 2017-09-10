@@ -13,11 +13,11 @@ public class SwapNodes {
 		node = linkedLists.insertAtEnd(node, 30);
 		node = linkedLists.insertAtEnd(node, 100);
 		node = linkedLists.insertAtEnd(node, 40);
-		System.out.println("Linked List before rotation:::");
+		System.out.println("Linked List before swapping:::");
 		linkedLists.printList(node);
 		SwapNodes swapNodes = new SwapNodes();
 		node = swapNodes.swap(node, 2, 5);
-		System.out.println("Linked List after swappinh:::");
+		System.out.println("Linked List after swapping:::");
 		linkedLists.printList(node);
 	}
 	ListNode swap(ListNode node, int pos1, int pos2){

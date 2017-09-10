@@ -25,7 +25,6 @@ public class ReverseListPair {
 			prev.setNext(null);
 		}
 		while(temp != null){
-			//curr = temp.getNext().getNext();
 			temp = temp.getNext().getNext();
 			curr.getNext().setNext(prev);
 			prev = curr;
