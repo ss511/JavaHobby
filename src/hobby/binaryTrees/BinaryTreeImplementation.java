@@ -4,6 +4,12 @@ import java.util.LinkedList;
 import java.util.Queue;
 import java.util.Scanner;
 
+/*
+ * 				50
+ * 		20				90
+ * 10		30		5		35
+ * 	 200
+ */
 public class BinaryTreeImplementation {
 
 	public static void main(String[] args) {
@@ -18,7 +24,7 @@ public class BinaryTreeImplementation {
 					+ "\n4-PostOrder Traversal"
 					+ "\n5-Level Order Traversal"
 					+ "\n6-Max Depth"
-					+ "\n7-Print Ancestors:"
+					+ "\n7-Lowest Common Ancestors:"
 					+ "\n8-Exit");
 			Scanner in = new Scanner(System.in);
 			choice = in.nextInt();
@@ -48,7 +54,12 @@ public class BinaryTreeImplementation {
 
 				break;
 			case 7:
-				binaryTreeUtils.printAncestors(root, 200);
+				BinaryTree lca = binaryTreeUtils.getLCA(root, 90, 35);
+				if(lca != null)
+					System.out.println("Least common ancestor is:: " + lca.getData());
+				else {
+					System.out.println("One of the data is not present in the binary tree.");
+				}
 				break;
 			case 8:
 				break;
@@ -118,7 +129,7 @@ class BinaryTreeUtils{
 			node.setData(200);
 			node.setLeft(null);
 			node.setRight(null);
-
+			
 			root.getLeft().getLeft().setRight(node);
 		}
 		return root;
@@ -190,19 +201,22 @@ class BinaryTreeUtils{
 		}
 	}
 	
-	public boolean printAncestors(BinaryTree root, int target){
+	public BinaryTree getLCA(BinaryTree root, int data1, int data2){
 		if(root == null){
-			return false;
+			return null;
 		}
-		if(root.getData() == target){
-			return true;
+		if(root.getData() == data1) {
+			return root;
+		}
+		if(root.getData() == data2) {
+			return	root;
 		}
 		
-		if(printAncestors(root.getLeft(), target) || printAncestors(root.getRight(), target)){
-			System.out.println(root.getData());
-			return true;
-		}
-		return false;
+		BinaryTree leftLCA = getLCA(root.getLeft(), data1, data2);
+		BinaryTree rightLCA = getLCA(root.getRight(), data1, data2);
+		if(leftLCA != null && rightLCA != null)
+			return root;
+		return (leftLCA != null) ? leftLCA : rightLCA; 
 	}
 }
 
