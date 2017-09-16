@@ -24,8 +24,10 @@ public class BinaryTreeImplementation {
 					+ "\n4-PostOrder Traversal"
 					+ "\n5-Level Order Traversal"
 					+ "\n6-Max Depth"
-					+ "\n7-Lowest Common Ancestors:"
-					+ "\n8-Exit");
+					+ "\n7-Lowest Common Ancestors"
+					+ "\n8-Convert To Doubly Linked List"
+					+ "\n9-Convert To Mirror Tree"
+					+ "\n10-Exit");
 			Scanner in = new Scanner(System.in);
 			choice = in.nextInt();
 			switch(choice){
@@ -62,13 +64,23 @@ public class BinaryTreeImplementation {
 				}
 				break;
 			case 8:
+				binaryTreeUtils.convertToDLL(root);
+				System.out.println("The Binary Tree in DLL format::");
+				binaryTreeUtils.printBTToDLL();
+				break;
+			case 9:
+				BinaryTree reverse = null;
+				reverse = binaryTreeUtils.convertToMirrorTree(root);
+				binaryTreeUtils.preOrder(reverse);
+				break;
+			case 10:
 				break;
 			default:
 				System.out.println("Please Enter Correct Choice:::");
 				break;
 
 			}
-		}while(choice != 8);
+		}while(choice != 10);
 
 
 	}
@@ -76,6 +88,7 @@ public class BinaryTreeImplementation {
 }
 
 class BinaryTreeUtils{
+	BinaryTree head;
 	public BinaryTree insertData(BinaryTree root){
 		if(root == null){
 			root = new BinaryTree();
@@ -134,7 +147,45 @@ class BinaryTreeUtils{
 		}
 		return root;
 	}
-
+	
+	public BinaryTree convertToMirrorTree(BinaryTree root) {
+		
+		if(root == null) {
+			return root;
+		}
+		
+		BinaryTree left = convertToMirrorTree(root.getLeft());
+		BinaryTree right = convertToMirrorTree(root.getRight());
+		
+		root.setLeft(right);
+		root.setRight(left);
+		return root;
+	}
+	public void convertToDLL(BinaryTree root) {
+		
+		if(root == null) {
+			return;
+		}
+		
+		convertToDLL(root.getRight());
+		
+		root.setRight(head);
+		
+		if(head != null) {
+			head.setLeft(root);
+		}
+		
+		head = root;
+		convertToDLL(root.getLeft());
+	}
+	
+	public void printBTToDLL() {
+		BinaryTree dll = head;
+		while(dll != null) {
+			System.out.print(dll.getData() + "--");
+			dll = dll.getRight();
+		}
+	}
 	public void preOrder(BinaryTree root){
 		if(root == null){
 			return;
@@ -245,3 +296,4 @@ class BinaryTree{
 	}
 
 }
+
